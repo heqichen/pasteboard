@@ -46,7 +46,7 @@ var dbAddMemo = function(title, content, timestamp, callback) {
 
 restRouter.get("/:pasteId", function(req, res) {
 	var title = req.params.pasteId.toLowerCase();
-	console.log("/data/paste id: ", title);
+	console.log("/rest/paste id: ", title);
 	getByTitle(title, function(err, data) {
 		if (err) {
 			res.json({"error": "unknown"});
@@ -58,12 +58,10 @@ restRouter.get("/:pasteId", function(req, res) {
 
 restRouter.post("/:pasteId", function(req, res) {
 	console.log("save data for ", req.params.pasteId);
-	console.log(req.body);
-	console.log(req.params);
 
 	
 	var content = req.body.content;
-	var title = req.params.pasteId;
+	var title = req.params.pasteId.toLowerCase();
 	if (content && title) {
 		var ts = Math.floor(new Date().getTime() / 1000);
 		dbAddMemo(title, content, ts, function(err) {
