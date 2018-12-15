@@ -5,8 +5,8 @@ import mime from "rest/interceptor/mime";
 import "./App.css";
 
 var client = rest.wrap(mime);
-//var DEBUGHOST = "";
-var DEBUGHOST = "http://localhost:3303";
+var DEBUGHOST = "";
+//var DEBUGHOST = "http://localhost:3303";
 
 class App extends Component {
 
