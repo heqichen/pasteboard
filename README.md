@@ -9,9 +9,9 @@ Frontend:
 ReactJS DraftJS REST
 
 
-Depoly: (front end files already put into backend/assets/)
+Depoly: (frontend files already put into server/assets/)
 
 
-> cd backend
+> cd server
 
 > node index.js
