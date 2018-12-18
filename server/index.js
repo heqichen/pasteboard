@@ -85,9 +85,12 @@ adminRouter.get("/list/:start", function(req, res) {
 	stmt.all([start], function(err, rows) {
 		if (err) {
 			callback(err);
+			res.json(err);
 		} else {
 			if (rows) {
 				res.json(rows);
+			} else {
+				res.json({});
 			}
 		}
 	});
