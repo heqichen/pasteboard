@@ -6,6 +6,7 @@ var makeWord = require("./dict.js");
 
 var port = 3303;
 var restRouter = express.Router();
+var adminRouter = express.Router();
 //var frontRouter = express.Router();
 
 
@@ -74,6 +75,24 @@ restRouter.post("/:pasteId", function(req, res) {
 	}
 });
 
+adminRouter.get("/list/:start", function(req, res) {
+	var start = 0;
+	if (!isNaN(req.params.start)) {
+		start = parseInt(req.params.start);
+	}
+	
+	var stmt = db.prepare("SELECT `id`, `title`, `content`, `creation_timestamp` FROM `content` ORDER BY `id` DESC LIMIT ?, 10");
+	stmt.all([start], function(err, rows) {
+		if (err) {
+			callback(err);
+		} else {
+			if (rows) {
+				res.json(rows);
+			}
+		}
+	});
+});
+
 var frontRouter = function(req, res, next) {
 	console.log("url:", req.url);
 	if (req.url == "/") {
@@ -99,6 +118,7 @@ app.use(bodyParser.json());
 
 
 app.use("/rest", restRouter);
+app.use("/admin", adminRouter);
 app.use("/", frontRouter);
 app.use("/assets", express.static("./assets"));
 
